@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+
+{% block header%}
+<div class="alert alert-primary" role="alert">
+    <h1>Board Media App</h1>
+</div>
+{% endblock header %}
+
+{% block content %}
+{% for post in posts %}
+<div class="container">
+    <div class="alert alert-success" role="alert">
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.author }}</p>
+        <button type="button" class="btn btn-primary">いいね {{ post.like }}</button>
+        <button type="button" class="btn btn-secondary">既読にする {{ post.read }}</button>
+    </div>    
+</div>
+{% endfor %}
+
+{% endblock content%}
