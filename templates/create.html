@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block header%}
+<div class="alert alert-primary" role="alert">
+    <h1><a href="{% url 'list' %}">Board's Media App</a></h1>
+    <h2>Create a Post</h2>
+    <a href="{% url 'logout' %}" class="btn btn-secondary btn-sm" role="button">Logout</a>
+</div>
+{% endblock header %}
+
+{% block content %}
+{% if user.is_authenticated %}
+
+<div class="container">
+    <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+        <!-- fileをアップロードさせ得る際はエンコードタイプを指定する必要がある。 -->
+        <p>
+            <label>
+            Title<input type="text" name="title">
+            </label>
+        </p>
+        <p>
+            <label>
+                Content<textarea name="content" rows="10" cols="40"></textarea>
+            </label>
+        </p>
+        <p>
+            <label>
+                Image<input type="file" name="post_image">
+            </label>
+        </p>
+        <p><input type="hidden" name="author" value="{{ user.username }}"></p> 
+        <!-- userはDjangoが自動で作っているUserモデル内のデータ。コード内では見えてしまうので、パスワードにhiddenは使わない。 -->
+        <input type="submit" value="create">
+    </form>    
+</div>
+
+{% else %}
+<p>Please login</p>
+<a href="{% url 'login' %}">Login</a>
+
+{% endif %}
+
+{% endblock content%}

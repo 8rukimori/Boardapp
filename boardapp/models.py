@@ -5,9 +5,9 @@ class PostModel(models.Model):
     author = models.CharField(max_length=50)
     content = models.TextField()
     post_image = models.ImageField(upload_to="")
-    like = models.IntegerField(default=0)
-    read = models.IntegerField(default=0)
-    readtxt = models.TextField(blank=True)
+    like = models.IntegerField(null=True, blank=True, default=0)
+    read = models.IntegerField(null=True, blank=True, default=0)
+    readtxt = models.TextField(null=True, blank=True, default=" ")
 
     def __str__(self):
         return self.title

@@ -4,19 +4,31 @@
 {% block header%}
 <div class="alert alert-primary" role="alert">
     <h1>Board's Media App</h1>
+    <h2>Post List</h2>
+    <a href="{% url 'logout' %}" class="btn btn-secondary btn-sm" role="button">Logout</a>
 </div>
 {% endblock header %}
 
 {% block content %}
-{% for post in posts %}
+{% if user.is_authenticated %}
+
 <div class="container">
+    <div>
+        <a href="{% url 'create' %}" class="btn btn-secondary btn-sm" role="button">Create</a>
+    </div>
+{% for post in posts %}
     <div class="alert alert-success" role="alert">
-        <h3>{{ post.title }}</h3>
+        <h3><a href="{% url 'detail' post.pk %}">{{ post.title }}</a></h3>
         <p>{{ post.author }}</p>
-        <button type="button" class="btn btn-primary">いいね {{ post.like }}</button>
-        <button type="button" class="btn btn-secondary">既読にする {{ post.read }}</button>
+        <button type="button" class="btn btn-primary" disabled>いいね {{ post.like }}</button>
+        <button type="button" class="btn btn-secondary" disabled>既読 {{ post.read }}</button>
     </div>    
-</div>
 {% endfor %}
+</div>
+
+{% else %}
+<p>Please login</p>
+
+{% endif %}
 
 {% endblock content%}
